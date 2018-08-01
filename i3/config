@@ -37,7 +37,7 @@ bindsym $mod+Return exec termite
 bindsym $mod+x kill
 
 #Lock
-bindsym $mod+Ctrl+l exec $Locker # i3lock -i /home/denis/Images/internet.png -R 130 -F 50 -X 960 -Y 850 
+bindsym $mod+Ctrl+l exec $Locker # i3lock -i /home/denis/Images/owl.png -R 130 -F 50 -X 960 -Y 850 
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -fn 'xos4 Terminus-12'" --term="termite"
@@ -81,10 +81,10 @@ bindsym $mod+f fullscreen toggle
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
+#bindsym $mod+Shift+s stacking
 #bindsym $mod+Shift+w tabbed
-#bindsym $mod+e layout toggle split
-
-# toggle tiling / floating
+#bindsym $mod+Shift+w tabbed
+#bindsym $mod+e layout toggle split # toggle tiling / floating
 bindsym $mod+space floating toggle
 
 # change focus between tiling / floating windows
@@ -107,17 +107,23 @@ bindsym XF86AudioMute exec --no-startup-id "amixer sset Master toggle; kill -10 
 #bindsym XF86AudioRaiseVolume exec "amixer -q sset Master,0 1+ unmute"
 #bindsym XF86AudioLowerVolume exec "amixer -q sset Master,0 1- unmute"
 #bindsym XF86AudioMute exec "amixer -q sset Master,0 toggle"
+#
+# Screenshots
+ 
+#bindcode 107 exec --no-startup-id "scrot -e 'mv $f /home/denis/shots/'"
+bindcode 107 exec --no-startup-id scrot '%Y-%m-%d_%H-%M-%S.png' -e 'mv $f /home/denis/shots/'
 
 set $w1 "1: Any " 
 set $w2 "2: Browser "
 set $w3 "3: Terminals "
+set $w4 "4: Editor "
 set $w10 "10: Music "
 
 # switch to workspace
 bindsym $mod+1 workspace $w1
 bindsym $mod+2 workspace $w2
 bindsym $mod+3 workspace $w3
-bindsym $mod+4 workspace 4
+bindsym $mod+4 workspace $w4
 bindsym $mod+5 workspace 5
 bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
@@ -129,7 +135,7 @@ bindsym $mod+0 workspace $w10
 bindsym $mod+Shift+1 move container to workspace $w1
 bindsym $mod+Shift+2 move container to workspace $w2
 bindsym $mod+Shift+3 move container to workspace $w3
-bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+4 move container to workspace $w4
 bindsym $mod+Shift+5 move container to workspace 5
 bindsym $mod+Shift+6 move container to workspace 6
 bindsym $mod+Shift+7 move container to workspace 7
@@ -208,8 +214,10 @@ bar {
 	status_command i3status | /home/denis/Scripts/weather.py --wrap-i3-status 834463 --unit c --format "{text}, {temp}°{unit_temperature}"
 }
 
-exec_always feh --bg-max /home/denis/Images/internet.png --image-bg "#1c1c24"
+#exec_always feh --bg-max /home/denis/Images/internet.png --image-bg "#1c1c24"
 #exec_always feh --bg-fill ~/Images/deer.jpg
+exec_always feh --bg-max ~/Images/owl.png
 exec firefox
 exec --no-startup-id i3-msg 'workspace $w3; exec termite; workspace $w1'
 exec --no-startup-id nm-applet
+exec --no-startup-id export QT_STYLE_OVERRIDE=gtk export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
